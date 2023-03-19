@@ -1,0 +1,123 @@
+:root {
+    --line-border-fill: #3498db;
+    --line-border-empty: #e0e0e0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f6f7fb;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+main {
+    text-align: center;
+}
+
+.progress-container {
+    display: flex;
+    justify-content: space-between;
+
+    /* To position the progress-bar 'absolute' in it */
+    position: relative;
+    margin-bottom: 1.5rem;
+
+    /* Max-width and width are used together, this implies, if the screen is 350px or less, use 100% width orelse use width 350px*/
+    max-width: 100%;
+    width: 350px;
+}
+
+/* The gray line */
+.progress-container::before {
+
+    /* When you use ::before or ::after you always have to use 'content' and set it to empty string*/
+    content: '';
+    background-color: var(--line-border-empty);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+    z-index: -1;
+}
+
+/* The blue line */
+.progress-bar {
+    background-color: var(--line-border-fill);
+
+    /* We will position it absolute within the 'progress container' which is positioned relative */
+    position: absolute;
+    /* Where exactly do we want to position it? Center veritaclly*/
+    top: 50%;
+    left: 0;
+
+    /* The line isn't exactly at the center vertically, even after top 50%. The top is at the center, what we want is the center of the line to be in the center of the container*/
+    transform: translateY(-50%);
+    height: 4px;
+    width: 0%;
+
+    /* To keep the 'progress bar' behind the circles */
+    z-index: -1;
+
+    /* As we click the button, we want it to trasition in a duration, not just flip to the next */
+    transition: .4s ease;
+}
+
+/* This is the progress bar when its empty */
+
+.step {
+    background-color: #fff;
+    color: #999;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    /* height: 30px; */
+    /* width: 30px; */
+
+    /* To align the numbers in the step */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid var(--line-border-empty);
+
+    /* The border will change according to where the blue line is, which will pertain to the 'active' class  */
+    transition: .4s ease;
+}
+
+.step.active {
+    border-color: var(--line-border-fill);
+}
+
+.button {
+    background-color: var(--line-border-fill);
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 8px 30px;
+    margin: 1rem;
+    font-size: .75rem;
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+.button:focus {
+    outline: 0;
+}
+
+.button:disabled {
+    background-color: var(--line-border-empty);
+    cursor: not-allowed;
+}
